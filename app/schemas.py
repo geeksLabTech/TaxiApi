@@ -10,7 +10,7 @@ class Pasenger(BaseModel):
     password: str
 
 
-class Drive(BaseModel):
+class Driver(BaseModel):
     id: int
     ci: str
     name: str
@@ -26,7 +26,7 @@ class Vehicle(BaseModel):
     license_plate: str
     seats: int
 
-    drive_id: int
+    driver_id: int
 
 
 class Place(BaseModel):
@@ -44,7 +44,7 @@ class Trip(BaseModel):
     distance: float
     origin: int
     destination: int
-    drive_id: int
+    driver_id: int
     pasenger_id: int
     vehicle_id: int
     status: str
