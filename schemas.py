@@ -50,6 +50,6 @@ class Trip(BaseModel):
     status: str
 
 
-class Famous_Places(BaseModel, Place):
+class FamousPlaces(Place):
     description: str
     clasification: str
