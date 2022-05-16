@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from . import schemas
-from models import PlaceDB, FamousPlacesDB
+from .. import schemas
+from ..models import PlaceDB, FamousPlacesDB
 
 
 def get_famousplace(db: Session, place_id: int):
