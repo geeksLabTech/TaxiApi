@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
-class PasengerDB(Base):
+class PassengerDB(Base):
     __tablename__ = 'passeger'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
@@ -40,7 +40,7 @@ class DriverVehicleDB(Base):
     vehicle_id = Column(Integer, ForeignKey('vehicle.id'), primary_key=True)
 
 
-class PlacesDB(Base):
+class PlaceDB(Base):
     __tablename__ = 'places'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
@@ -50,7 +50,7 @@ class PlacesDB(Base):
     trips = relationship("TripDB", back_populates="origin")
 
 
-class Trip(Base):
+class TripDB(Base):
     __tablename__ = 'trip'
     id = Column(Integer, primary_key=True, index=True)
     date = Column(DateTime, nullable=False)
@@ -64,7 +64,7 @@ class Trip(Base):
     pasenger_id = Column(Integer, ForeignKey('passeger.id'), nullable=False)
 
 
-class FamousPlacesDB(PlacesDB, Base):
+class FamousPlacesDB(PlaceDB, Base):
     __tablename__ = 'famous_places'
     description = Column(String(64), nullable=False)
     clasification = Column(String(64), nullable=False)

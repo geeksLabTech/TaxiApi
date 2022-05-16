@@ -3,7 +3,7 @@ from pydantic import BaseModel
 # Class User with id, name, email, password
 
 
-class Pasenger(BaseModel):
+class Passenger(BaseModel):
     id: int
     name: str
     phone_number: str

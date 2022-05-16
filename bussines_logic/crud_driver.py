@@ -21,21 +21,21 @@ def get_drivers(db: Session):
 
 def create_driver(db: Session, driver: schemas.Driver):
     db_driver = models.DriverDB(ci=driver.ci, name=driver.name,
-                              phone_number=driver.phone_number, password=driver.password)
+                                phone_number=driver.phone_number, password=driver.password)
     db.add(db_driver)
     db.commit()
     db.refresh(db_driver)
     return db_driver
 
 
-def update_driver(db: Session, driver_id: int, driver: schemas.Driver):
-    db_driver: Union[models.DriverDB, None] = db.query(models.DriverDB).filter(
-        models.DriverDB.id == driver_id).first()
-    db_driver.name = driver.name
-    db_driver.phone_number = driver.phone_number
-    db_driver.password = driver.password
-    db.commit()
-    return db_driver
+# def update_driver(db: Session, driver_id: int, driver: schemas.Driver):
+#     db_driver: Union[models.DriverDB, None] = db.query(models.DriverDB).filter(
+#         models.DriverDB.id == driver_id).first()
+#     db_driver.name = driver.name
+#     db_driver.phone_number = driver.phone_number
+#     db_driver.password = driver.password
+#     db.commit()
+#     return db_driver
 
 
 def delete_driver(db: Session, driver_id: int):
