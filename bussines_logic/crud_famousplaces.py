@@ -1,21 +1,24 @@
 from sqlalchemy.orm import Session
 from .. import schemas
 from ..models import PlaceDB, FamousPlacesDB
+from ..schemas import FamousPlaces
+from fastapi import Depends
+from dependencies import get_deb
 
 
-def get_famousplace(db: Session, place_id: int):
+def get_famousplace(place_id: int, db: Session = Depends(get_db)):
     return db.query(PlaceDB).filter(PlaceDB.id == place_id).first()
 
 
-def get_famousplaces(db: Session):
+def get_famousplaces(db: Session = Depends(get_db)):
     return db.query(PlaceDB).all()
 
 
-def get_famousplaces_by_name(db: Session, name: str):
+def get_famousplaces_by_name(name: str, db: Session = Depends(get_db)):
     return db.query(PlaceDB).filter(PlaceDB.name == name).first()
 
 
-def create_famousplace(db: Session, place: FamousPlacesDB):
+def create_famousplace(place: FamousPlaces, db: Session = Depends(get_db)):
     db_place = PlaceDB(
         name=place.name, address=place.address, latitude=place.latitude, longitude=place.longitude)
     db.add(db_place)
@@ -35,7 +38,7 @@ def create_famousplace(db: Session, place: FamousPlacesDB):
 #     return db_place
 
 
-def delete_famousplace(db: Session, place_id: int):
+def delete_famousplace(place_id: int, db: Session = Depends(get_db)):
     db_place = db.query(PlaceDB).filter(
         PlaceDB.id == place_id).first()
     db.delete(db_place)

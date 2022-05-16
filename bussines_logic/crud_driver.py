@@ -1,25 +1,28 @@
 from sqlalchemy.orm import Session
 from .. import models, schemas
+from ..schemas import Driver
 from typing import Union
+from fastapi import Depends
+from dependencies import get_deb
 
 
-def get_driver(db: Session, driver_id: int):
+def get_driver(driver_id: int, db: Session = Depends(get_db)):
     return db.query(models.DriverDB).filter(models.DriverDB.id == driver_id).first()
 
 
-def get_driver_by_ci(db: Session, ci: str):
+def get_driver_by_ci(ci: str, db: Session = Depends(get_db)):
     return db.query(models.DriverDB).filter(models.DriverDB.ci == ci).first()
 
 
-def get_driver_by_phone_number(db: Session, phone_number: str):
+def get_driver_by_phone_number(phone_number: str, db: Session = Depends(get_db)):
     return db.query(models.DriverDB).filter(models.DriverDB.phone_number == phone_number).first()
 
 
-def get_drivers(db: Session):
+def get_drivers(db: Session = Depends(get_db)):
     return db.query(models.DriverDB).all()
 
 
-def create_driver(db: Session, driver: schemas.Driver):
+def create_driver(driver: schemas.Driver, db: Session = Depends(get_db)):
     db_driver = models.DriverDB(ci=driver.ci, name=driver.name,
                                 phone_number=driver.phone_number, password=driver.password)
     db.add(db_driver)
@@ -38,7 +41,7 @@ def create_driver(db: Session, driver: schemas.Driver):
 #     return db_driver
 
 
-def delete_driver(db: Session, driver_id: int):
+def delete_driver(driver_id: int, db: Session = Depends(get_db)):
     db_driver = db.query(models.Driver).filter(
         models.Driver.id == driver_id).first()
     db.delete(db_driver)

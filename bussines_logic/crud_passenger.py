@@ -5,8 +5,7 @@ from fastapi import Depends
 from dependencies import get_db
 
 
-
-def get_passenger( passenger_id: int, db: Session = Depends(get_db)):
+def get_passenger(passenger_id: int, db: Session = Depends(get_db)):
     return db.query(PassengerDB).filter(PassengerDB.id == passenger_id).first()
 
 

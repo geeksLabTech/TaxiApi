@@ -1,17 +1,20 @@
 from sqlalchemy.orm import Session
 from .. import schemas
 from ..models import VehicleDB
+from ..schemas import Vehicle
+from fastapi import Depends
+from dependencies import get_deb
 
 
-def get_vehicle(db: Session, vehicle_id: int):
+def get_vehicle(vehicle_id: int, db: Session = Depends(get_db)):
     return db.query(VehicleDB).filter(VehicleDB.id == vehicle_id).first()
 
 
-def get_vehicles(db: Session):
+def get_vehicles(db: Session = Depends(get_db)):
     return db.query(VehicleDB).all()
 
 
-def create_vehicle(db: Session, vehicle: VehicleDB):
+def create_vehicle(vehicle: Vehicle, db: Session = Depends(get_db)):
     db_vehicle = VehicleDB(license_plate=vehicle.license_plate, brand=vehicle.brand,
                            model=vehicle.model, color=vehicle.color, year=vehicle.year, driver_id=vehicle.driver_id)
     db.add(db_vehicle)
@@ -33,7 +36,7 @@ def create_vehicle(db: Session, vehicle: VehicleDB):
 #     return db_vehicle
 
 
-def delete_vehicle(db: Session, vehicle_id: int):
+def delete_vehicle(vehicle_id: int, db: Session = Depends(get_db)):
     db_vehicle = db.query(VehicleDB).filter(
         VehicleDB.id == vehicle_id).first()
     db.delete(db_vehicle)
@@ -41,5 +44,5 @@ def delete_vehicle(db: Session, vehicle_id: int):
     return db_vehicle
 
 
-def get_vehicle_by_license_plate(db: Session, license_plate: str):
+def get_vehicle_by_license_plate(license_plate: str, db: Session = Depends(get_db)):
     return db.query(VehicleDB).filter(VehicleDB.license_plate == license_plate).first()
