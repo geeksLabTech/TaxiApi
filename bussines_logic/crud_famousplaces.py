@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from .. import schemas
-from ..models import PlaceDB, FamousPlacesDB
-from ..schemas import FamousPlaces
+from . import schemas
+from .models import PlaceDB, FamousPlacesDB
+from .schemas import FamousPlaces
 from fastapi import Depends
-from dependencies import get_deb
+from dependencies import get_db
 
 
 def get_famousplace(place_id: int, db: Session = Depends(get_db)):

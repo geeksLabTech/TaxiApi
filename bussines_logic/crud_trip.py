@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
-from .. import schemas
-from ..models import TripDB
-from ..schemas import Trip
+from .models import TripDB
+from .schemas import Trip
 from fastapi import Depends
-from dependencies import get_deb
+from dependencies import get_db
 
 
 def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depends(get_db)):

@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from .. import schemas
-from ..models import PassengerDB
+from models import PassengerDB
 from fastapi import Depends
 from dependencies import get_db
+from schemas import Passenger
 
 
 def get_passenger(passenger_id: int, db: Session = Depends(get_db)):
@@ -13,11 +13,11 @@ def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_d
     return db.query(PassengerDB).filter(PassengerDB.phone_number == phone_number).first()
 
 
-def get_passengers(db: Session = Depends(get_db)):
+def get_all_passengers(db: Session = Depends(get_db)):
     return db.query(PassengerDB).all()
 
 
-def create_passenger(passenger: PassengerDB, db: Session = Depends(get_db)):
+def create_passenger(passenger: Passenger, db: Session = Depends(get_db)):
     db_passenger = PassengerDB(
         name=passenger.name, phone_number=passenger.phone_number, password=passenger.password)
     db.add(db_passenger)

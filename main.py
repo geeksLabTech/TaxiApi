@@ -1,11 +1,16 @@
 
 from fastapi import FastAPI
+from routers import passenger
+from database import SessionLocal, engine
+import models
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.include_router(passenger.router)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+
+
 
 

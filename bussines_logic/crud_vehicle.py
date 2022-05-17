@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from .. import schemas
-from ..models import VehicleDB
-from ..schemas import Vehicle
+
+from .models import VehicleDB
+from .schemas import Vehicle
 from fastapi import Depends
-from dependencies import get_deb
+from dependencies import get_db
 
 
 def get_vehicle(vehicle_id: int, db: Session = Depends(get_db)):
@@ -16,7 +16,7 @@ def get_vehicles(db: Session = Depends(get_db)):
 
 def create_vehicle(vehicle: Vehicle, db: Session = Depends(get_db)):
     db_vehicle = VehicleDB(license_plate=vehicle.license_plate, brand=vehicle.brand,
-                           model=vehicle.model, color=vehicle.color, year=vehicle.year, driver_id=vehicle.driver_id)
+                           model=vehicle.model, color=vehicle.color , driver_id=vehicle.driver_id)
     db.add(db_vehicle)
     db.commit()
     db.refresh(db_vehicle)

@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from .. import models, schemas
-from ..models import DriverVehicleDB
-from ..schemas import DriverVehicle
+
+from .models import DriverVehicleDB
+from .schemas import DriverVehicle
 from fastapi import Depends
-from dependencies import get_deb
+from dependencies import get_db
 
 
 def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session = Depends(get_db)):

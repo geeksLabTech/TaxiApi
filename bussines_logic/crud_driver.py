@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from .. import models, schemas
-from ..schemas import Driver
+from . import models, schemas
+from .schemas import Driver
 from typing import Union
 from fastapi import Depends
-from dependencies import get_deb
+from dependencies import get_db
 
 
 def get_driver(driver_id: int, db: Session = Depends(get_db)):
@@ -42,8 +42,8 @@ def create_driver(driver: schemas.Driver, db: Session = Depends(get_db)):
 
 
 def delete_driver(driver_id: int, db: Session = Depends(get_db)):
-    db_driver = db.query(models.Driver).filter(
-        models.Driver.id == driver_id).first()
+    db_driver = db.query(models.DriverDB).filter(
+        models.DriverDB.id == driver_id).first()
     db.delete(db_driver)
     db.commit()
     return db_driver

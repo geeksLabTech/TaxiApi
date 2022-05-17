@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Float, Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship
-from .database import Base
+from database import Base
 
 
 class PassengerDB(Base):
@@ -32,6 +32,7 @@ class VehicleDB(Base):
     seats = Column(Integer, nullable=False)
     drive_id = Column(Integer, ForeignKey('driver.id'), nullable=False)
     trips = relationship("DriverDB", back_populates="vehicle")
+    model = Column(String(64), nullable=False)
 
 
 class DriverVehicleDB(Base):
@@ -64,7 +65,8 @@ class TripDB(Base):
     pasenger_id = Column(Integer, ForeignKey('passeger.id'), nullable=False)
 
 
-class FamousPlacesDB(PlaceDB, Base):
+class FamousPlacesDB(PlaceDB):
     __tablename__ = 'famous_places'
+    id = Column(Integer, ForeignKey('places.id'), primary_key=True)
     description = Column(String(64), nullable=False)
     clasification = Column(String(64), nullable=False)

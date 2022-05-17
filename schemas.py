@@ -3,14 +3,14 @@ from pydantic import BaseModel
 # Class User with id, name, email, password
 
 
-class Pasenger(BaseModel):
+class Passenger(BaseModel):
     id: int
     name: str
     phone_number: str
     password: str
 
     class Confing:
-        ormz_mode = True
+        orm_mode = True
 
 
 class Driver(BaseModel):
@@ -21,7 +21,7 @@ class Driver(BaseModel):
     password: str
 
     class Confing:
-        ormz_mode = True
+        orm_mode = True
 
 
 class Vehicle(BaseModel):
@@ -31,12 +31,19 @@ class Vehicle(BaseModel):
     color: str
     license_plate: str
     seats: int
-
+    model : str
     driver_id: int
 
     class Confing:
-        ormz_mode = True
+        orm_mode = True
 
+
+class DriverVehicle(BaseModel):
+    driver_id: int
+    vehicle_id: int
+
+    class Confing:
+        orm_mode = True
 
 class Place(BaseModel):
     id: int
@@ -46,7 +53,7 @@ class Place(BaseModel):
     longitude: float
 
     class Confing:
-        ormz_mode = True
+        orm_mode = True
 
 
 class Trip(BaseModel):
@@ -62,7 +69,7 @@ class Trip(BaseModel):
     status: str
 
     class Confing:
-        ormz_mode = True
+        orm_mode = True
 
 
 class FamousPlaces(Place):
