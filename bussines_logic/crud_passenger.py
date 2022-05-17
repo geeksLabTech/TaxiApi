@@ -1,21 +1,30 @@
 from sqlalchemy.orm import Session
 from .. import schemas
 from ..models import PassengerDB
+from fastapi import Depends
+from database import SessionLocal
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
-def get_passenger(db: Session, passenger_id: int):
+def get_passenger( passenger_id: int, db: Session = Depends(get_db)):
     return db.query(PassengerDB).filter(PassengerDB.id == passenger_id).first()
 
 
-def get_passenger_by_phone_number(db: Session, phone_number: str):
+def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_db)):
     return db.query(PassengerDB).filter(PassengerDB.phone_number == phone_number).first()
 
 
-def get_passengers(db: Session):
+def get_passengers(db: Session = Depends(get_db)):
     return db.query(PassengerDB).all()
 
 
-def create_passenger(db: Session, passenger: PassengerDB):
+def create_passenger(passenger: PassengerDB, db: Session = Depends(get_db)):
     db_passenger = PassengerDB(
         name=passenger.name, phone_number=passenger.phone_number, password=passenger.password)
     db.add(db_passenger)
@@ -34,7 +43,7 @@ def create_passenger(db: Session, passenger: PassengerDB):
 #     return db_passenger
 
 
-def delete_passenger(db: Session, passenger_id: int):
+def delete_passenger(passenger_id: int, db: Session = Depends(get_db)):
     db_passenger = db.query(PassengerDB).filter(
         PassengerDB.id == passenger_id).first()
     db.delete(db_passenger)
