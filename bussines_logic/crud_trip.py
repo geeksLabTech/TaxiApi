@@ -1,19 +1,17 @@
 from sqlalchemy.orm import Session
 from .models import TripDB
 from .schemas import Trip
-from fastapi import Depends
-from dependencies import get_db
 
 
-def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depends(get_db)):
+def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
     return db.query(TripDB).filter(TripDB.driver_id == driver_id, TripDB.pasenger_id == pasenger_id, TripDB.vehicle_id == vehicle_id).first()
 
 
-def get_trips(db: Session = Depends(get_db)):
+def get_trips(db: Session):
     return db.query(TripDB).all()
 
 
-def create_trip(trip: Trip, db: Session = Depends(get_db)):
+def create_trip(trip: Trip, db: Session):
     db_trip = TripDB(driver_id=trip.driver_id,
                      pasenger_id=trip.pasenger_id, vehicle_id=trip.vehicle_id)
     db.add(db_trip)
@@ -31,7 +29,7 @@ def create_trip(trip: Trip, db: Session = Depends(get_db)):
 #     db.commit()
 
 
-def delete_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depends(get_db)):
+def delete_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
     db_trip = db.query(TripDB).filter(TripDB.driver_id == driver_id,
                                       TripDB.pasenger_id == pasenger_id, TripDB.vehicle_id == vehicle_id).first()
     db.delete(db_trip)

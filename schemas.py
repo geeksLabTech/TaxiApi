@@ -31,7 +31,7 @@ class Vehicle(BaseModel):
     color: str
     license_plate: str
     seats: int
-    model : str
+    model: str
     driver_id: int
 
     class Confing:
@@ -44,6 +44,7 @@ class DriverVehicle(BaseModel):
 
     class Confing:
         orm_mode = True
+
 
 class Place(BaseModel):
     id: int
@@ -64,7 +65,7 @@ class Trip(BaseModel):
     origin: int
     destination: int
     driver_id: int
-    pasenger_id: int
+    passenger_id: int
     vehicle_id: int
     status: str
 

@@ -2,23 +2,21 @@ from sqlalchemy.orm import Session
 
 from .models import PlaceDB
 from .schemas import Place
-from fastapi import Depends
-from dependencies import get_db
 
 
-def get_place(place_id: int, db: Session = Depends(get_db)):
+def get_place(place_id: int, db: Session):
     return db.query(PlaceDB).filter(PlaceDB.id == place_id).first()
 
 
-def get_places(db: Session = Depends(get_db)):
+def get_places(db: Session):
     return db.query(PlaceDB).all()
 
 
-def get_places_by_name(name: str, db: Session = Depends(get_db)):
+def get_places_by_name(name: str, db: Session):
     return db.query(PlaceDB).filter(PlaceDB.name == name).first()
 
 
-def create_place(place: Place, db: Session = Depends(get_db)):
+def create_place(place: Place, db: Session):
     db_place = PlaceDB(
         name=place.name, address=place.address, latitude=place.latitude, longitude=place.longitude)
     db.add(db_place)
@@ -38,7 +36,7 @@ def create_place(place: Place, db: Session = Depends(get_db)):
 #     return db_place
 
 
-def delete_place(place_id: int, db: Session = Depends(get_db)):
+def delete_place(place_id: int, db: Session):
     db_place = db.query(PlaceDB).filter(
         PlaceDB.id == place_id).first()
     db.delete(db_place)
