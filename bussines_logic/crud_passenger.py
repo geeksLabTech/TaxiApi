@@ -2,14 +2,8 @@ from sqlalchemy.orm import Session
 from .. import schemas
 from ..models import PassengerDB
 from fastapi import Depends
-from database import SessionLocal
+from dependencies import get_db
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 def get_passenger( passenger_id: int, db: Session = Depends(get_db)):
