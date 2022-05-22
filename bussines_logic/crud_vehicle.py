@@ -7,7 +7,7 @@ def get_vehicle(vehicle_id: int, db: Session ):
     return db.query(VehicleDB).filter(VehicleDB.id == vehicle_id).first()
 
 
-def get_vehicles(db: Session ):
+def get_all_vehicles(db: Session ):
     return db.query(VehicleDB).all()
 
 

@@ -34,10 +34,10 @@ def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_d
 
 
 @router.post("/", response_model=Passenger)
-def create_passenger(passenger: Passenger):
-    return crud_passenger.create_passenger(passenger)
+def create_passenger(passenger: Passenger, db: Session = Depends(get_db)):
+    return crud_passenger.create_passenger(passenger, db)
 
 
 @router.delete("/{passenger_id}", response_model=Passenger)
-def delete_passenger(passenger_id: int):
-    return crud_passenger.delete_passenger(passenger_id)
+def delete_passenger(passenger_id: int, db: Session = Depends(get_db)):
+    return crud_passenger.delete_passenger(passenger_id, db)

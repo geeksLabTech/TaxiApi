@@ -8,11 +8,11 @@ def get_place(place_id: int, db: Session):
     return db.query(PlaceDB).filter(PlaceDB.id == place_id).first()
 
 
-def get_places(db: Session):
+def get_all_places(db: Session):
     return db.query(PlaceDB).all()
 
 
-def get_places_by_name(name: str, db: Session):
+def get_place_by_name(name: str, db: Session):
     return db.query(PlaceDB).filter(PlaceDB.name == name).first()
 
 

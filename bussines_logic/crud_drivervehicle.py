@@ -8,7 +8,7 @@ def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
     return db.query(DriverVehicleDB).filter(DriverVehicleDB.driver_id == driver_id, DriverVehicleDB.vehicle_id == vehicle_id).first()
 
 
-def get_drivervehicles(db: Session):
+def get_all_drivervehicles(db: Session):
     return db.query(DriverVehicleDB).all()
 
 

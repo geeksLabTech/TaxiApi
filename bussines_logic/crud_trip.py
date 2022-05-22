@@ -7,7 +7,7 @@ def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
     return db.query(TripDB).filter(TripDB.driver_id == driver_id, TripDB.pasenger_id == pasenger_id, TripDB.vehicle_id == vehicle_id).first()
 
 
-def get_trips(db: Session):
+def get_all_trips(db: Session):
     return db.query(TripDB).all()
 
 

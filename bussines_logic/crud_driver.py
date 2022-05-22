@@ -17,7 +17,7 @@ def get_driver_by_phone_number(phone_number: str, db: Session ):
     return db.query(models.DriverDB).filter(models.DriverDB.phone_number == phone_number).first()
 
 
-def get_drivers(db: Session ):
+def get_all_drivers(db: Session ):
     return db.query(models.DriverDB).all()
 
 

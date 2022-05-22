@@ -9,7 +9,7 @@ def get_famousplace(place_id: int, db: Session ):
     return db.query(PlaceDB).filter(PlaceDB.id == place_id).first()
 
 
-def get_famousplaces(db: Session ):
+def get_all_famousplaces(db: Session ):
     return db.query(PlaceDB).all()
 
 
