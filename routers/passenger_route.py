@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import Passenger
+from ..schemas import Passenger
 from typing import List
 from sqlalchemy.orm import Session
-from bussines_logic import crud_passenger
-from dependencies import get_db
+from ..bussines_logic import crud_passenger
+from ..dependencies import get_db
 
 router = APIRouter(
     prefix="/passenger",

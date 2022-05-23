@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from .models import TripDB
-from .schemas import Trip
+from ..models import TripDB
+from ..schemas import Trip
 
 
 def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
@@ -13,7 +13,7 @@ def get_all_trips(db: Session):
 
 def create_trip(trip: Trip, db: Session):
     db_trip = TripDB(driver_id=trip.driver_id,
-                     pasenger_id=trip.pasenger_id, vehicle_id=trip.vehicle_id)
+                     pasenger_id=trip.passenger_id, vehicle_id=trip.vehicle_id)
     db.add(db_trip)
     db.commit()
     db.refresh(db_trip)

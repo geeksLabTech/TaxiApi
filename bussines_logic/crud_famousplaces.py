@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from . import schemas
-from .models import PlaceDB, FamousPlacesDB
-from .schemas import FamousPlaces
+from .. import schemas
+from ..models import PlaceDB, FamousPlacesDB
+from ..schemas import FamousPlaces
 from fastapi import Depends
 
 

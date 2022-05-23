@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from .models import VehicleDB
-from .schemas import Vehicle
+from ..models import VehicleDB
+from ..schemas import Vehicle
 
 def get_vehicle(vehicle_id: int, db: Session ):
     return db.query(VehicleDB).filter(VehicleDB.id == vehicle_id).first()

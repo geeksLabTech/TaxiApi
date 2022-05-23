@@ -1,4 +1,4 @@
-from test_sql_app import client
+from .test_sql_app import client
 
 def test_create_passenger():
     response = client.post("/passenger/", json={"name": "John Doe", "phone_number": 55193109, "password": "12345"})

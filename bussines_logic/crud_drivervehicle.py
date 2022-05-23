@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from .models import DriverVehicleDB
-from .schemas import DriverVehicle
+from ..models import DriverVehicleDB
+from ..schemas import DriverVehicle
 
 
 def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session):

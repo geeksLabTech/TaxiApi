@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from .models import PlaceDB
-from .schemas import Place
+from ..models import PlaceDB
+from ..schemas import Place
 
 
 def get_place(place_id: int, db: Session):
