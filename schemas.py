@@ -9,7 +9,7 @@ class Passenger(BaseModel):
     phone_number: str
     password: str
 
-    class Confing:
+    class Config:
         orm_mode = True
 
 
@@ -20,7 +20,7 @@ class Driver(BaseModel):
     phone_number: str
     password: str
 
-    class Confing:
+    class Config:
         orm_mode = True
 
 
@@ -34,7 +34,7 @@ class Vehicle(BaseModel):
     model: str
     driver_id: int
 
-    class Confing:
+    class Config:
         orm_mode = True
 
 
@@ -42,7 +42,7 @@ class DriverVehicle(BaseModel):
     driver_id: int
     vehicle_id: int
 
-    class Confing:
+    class Config:
         orm_mode = True
 
 
@@ -53,7 +53,7 @@ class Place(BaseModel):
     latitude: float
     longitude: float
 
-    class Confing:
+    class Config:
         orm_mode = True
 
 
@@ -69,7 +69,7 @@ class Trip(BaseModel):
     vehicle_id: int
     status: str
 
-    class Confing:
+    class Config:
         orm_mode = True
 
 
