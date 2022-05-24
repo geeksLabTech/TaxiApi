@@ -60,9 +60,12 @@ class TripDB(Base):
     price = Column(Float, nullable=False)
     distance = Column(Float, nullable=False)
     origin = Column(Integer, ForeignKey('places.id'), nullable=False)
+    status = Column(String(64), nullable=False)
     destination = relationship("PlaceDB", back_populates='trips')
-    driver_vehicle_id = Column(
+    driver_id = Column(
         Integer, ForeignKey('driver.id'), nullable=False)
+    vehicle_id = Column(
+        Integer, ForeignKey('vehicle.id'), nullable=False)
     passenger_id = Column(Integer, ForeignKey('passenger.id'), nullable=False)
     passenger = relationship('PassengerDB', back_populates='trips')
 
@@ -71,4 +74,4 @@ class FamousPlacesDB(PlaceDB):
     __tablename__ = 'famous_places'
     id = Column(Integer, ForeignKey('places.id'), primary_key=True)
     description = Column(String(64), nullable=False)
-    clasification = Column(String(64), nullable=False)
+    classification = Column(String(64), nullable=False)
