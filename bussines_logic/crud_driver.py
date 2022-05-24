@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from .. import models, schemas
+from .. import models
 from ..schemas import Driver
 from typing import Union
 from fastapi import Depends
@@ -21,7 +21,7 @@ def get_all_drivers(db: Session ):
     return db.query(models.DriverDB).all()
 
 
-def create_driver(driver: schemas.Driver, db: Session ):
+def create_driver(driver: Driver, db: Session ):
     db_driver = models.DriverDB(ci=driver.ci, name=driver.name,
                                 phone_number=driver.phone_number, password=driver.password)
     db.add(db_driver)

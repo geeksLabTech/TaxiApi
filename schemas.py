@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from enum import Enum
 # Class User with id, name, email, password
 
 
@@ -57,7 +57,15 @@ class Place(BaseModel):
         orm_mode = True
 
 
+class Status(str, Enum):
+    ACCEPTED = 'ACCEPTED'
+    REJECTED = 'REJECTED'
+    CANCELED = 'CANCELED'
+    FINISHED = 'FINISHED'
+
+
 class Trip(BaseModel):
+    id: int
     date: str
     time: str
     price: float
@@ -67,7 +75,7 @@ class Trip(BaseModel):
     driver_id: int
     passenger_id: int
     vehicle_id: int
-    status: str
+    status: Status
 
     class Config:
         orm_mode = True
