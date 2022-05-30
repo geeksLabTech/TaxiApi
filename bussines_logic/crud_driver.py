@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from .. import models
-from ..schemas import Driver
+import models
+from schemas import Driver
 from typing import Union
 from fastapi import Depends
 

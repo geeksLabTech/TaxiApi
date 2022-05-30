@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from ..models import PassengerDB
-from ..schemas import Passenger
+from models import PassengerDB
+from schemas import Passenger
 
 
 def get_passenger(passenger_id: int, db: Session ):

@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
-from ..schemas import Driver
+from schemas import Driver
 from typing import List
 from sqlalchemy.orm import Session
-from ..bussines_logic import crud_driver
-from ..dependencies import get_db
+from bussines_logic import crud_driver
+from dependencies import get_db
 
 
 router = APIRouter(

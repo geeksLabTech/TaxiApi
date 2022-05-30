@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from ..models import TripDB
-from ..schemas import Trip
+from models import TripDB
+from schemas import Trip
 
 
 def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
