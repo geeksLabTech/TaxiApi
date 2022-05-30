@@ -45,14 +45,16 @@ def populate_test_db_with_fake_data(db):
     for famous in FAMOUS_PLACES_DB:
         data_to_add.append(famous)
         
+    
     db.add_all(data_to_add)
+    
     db.commit()
 
 
 
 @pytest.fixture()
 def session():
-    Base.metadata.drop_all(bind=engine)
+    
     Base.metadata.create_all(bind=engine)
     db = TestingSessionLocal()
     populate_test_db_with_fake_data(db)
@@ -61,6 +63,7 @@ def session():
         yield db
     finally:
         db.close()
+    Base.metadata.drop_all(bind=engine)
 
 
 @pytest.fixture()

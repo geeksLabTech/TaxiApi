@@ -5,6 +5,7 @@ from database import Base
 
 class PassengerDB(Base):
     __tablename__ = 'passenger'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
     phone_number = Column(String(64), nullable=False)
@@ -14,6 +15,7 @@ class PassengerDB(Base):
 
 class DriverDB(Base):
     __tablename__ = 'driver'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     ci = Column(String(64), nullable=False)
     name = Column(String(64), nullable=False)
@@ -24,6 +26,7 @@ class DriverDB(Base):
 
 class VehicleDB(Base):
     __tablename__ = 'vehicle'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
     brand = Column(String(64), nullable=False)
@@ -38,12 +41,14 @@ class VehicleDB(Base):
 
 class DriverVehicleDB(Base):
     __tablename__ = 'driver_vehicle'
+    __table_args__ = {'extend_existing': True}
     driver_id = Column(Integer, ForeignKey('driver.id'), primary_key=True)
     vehicle_id = Column(Integer, ForeignKey('vehicle.id'))
 
 
 class PlaceDB(Base):
     __tablename__ = 'places'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
     address = Column(String(64), nullable=False)
@@ -54,6 +59,7 @@ class PlaceDB(Base):
 
 class TripDB(Base):
     __tablename__ = 'trip'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     date = Column(DateTime, nullable=False)
     time = Column(String(64), nullable=False)
@@ -72,6 +78,7 @@ class TripDB(Base):
 
 class FamousPlacesDB(PlaceDB):
     __tablename__ = 'famous_places'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, ForeignKey('places.id'), primary_key=True)
     description = Column(String(64), nullable=False)
     classification = Column(String(64), nullable=False)
