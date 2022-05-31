@@ -27,6 +27,14 @@ engine = create_engine(
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+def override_get_db():
+      try:
+          db = TestingSessionLocal()
+          yield db
+      finally:
+          db.close()
+
+app.dependency_overrides[get_db] = override_get_db
 
 def populate_test_db_with_fake_data(db):
     data_to_add = []
@@ -51,32 +59,32 @@ def populate_test_db_with_fake_data(db):
     db.commit()
 
 
+# 
+# @pytest.fixture()
+# def session():
+    # 
+    # Base.metadata.create_all(bind=engine)
+    # db = TestingSessionLocal()
+    # populate_test_db_with_fake_data(db)
+# 
+    # try:
+        # yield db
+    # finally:
+        # db.close()
+    # Base.metadata.drop_all(bind=engine)
 
-@pytest.fixture()
-def session():
-    
-    Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
-    populate_test_db_with_fake_data(db)
 
-    try:
-        yield db
-    finally:
-        db.close()
-    Base.metadata.drop_all(bind=engine)
-
-
-@pytest.fixture()
-def client(session) -> Iterable[TestClient]:
-
-    def override_get_db():
-        try:
-            yield session
-        finally:
-            session.close()
-
-    app.dependency_overrides[get_db] = override_get_db
-
-    yield TestClient(app)
+# @pytest.fixture()
+# def client(session) -> Iterable[TestClient]:
+# 
+    # def override_get_db():
+        # try:
+            # yield session
+        # finally:
+            # session.close()
+# 
+    # app.dependency_overrides[get_db] = override_get_db
+# 
+    # yield TestClient(app)
 
 
