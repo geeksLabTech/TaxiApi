@@ -12,9 +12,11 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
+
 @router.get("/", response_model=List[Driver])
 def get_all_drivers(db: Session = Depends(get_db)):
     return crud_driver.get_all_drivers(db)
+
 
 @router.get("/{driver_id}", response_model=Driver)
 def get_driver(driver_id: int, db: Session = Depends(get_db)):
@@ -23,12 +25,14 @@ def get_driver(driver_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Driver not found")
     return driver
 
+
 @router.get("/phone_number/{phone_number}", response_model=Driver)
 def get_driver_by_phone_number(phone_number: str, db: Session = Depends(get_db)):
     driver = crud_driver.get_driver_by_phone_number(phone_number, db)
     if not driver:
         raise HTTPException(status_code=404, detail="Driver not found")
     return driver
+
 
 @router.get("/ci/{ci}", response_model=Driver)
 def get_driver_by_ci(ci: str, db: Session = Depends(get_db)):
@@ -37,9 +41,11 @@ def get_driver_by_ci(ci: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Driver not found")
     return driver
 
+
 @router.post("/", response_model=Driver)
 def create_driver(driver: Driver, db: Session = Depends(get_db)):
-    if db.query(crud_driver.get_driver_by_phone_number(driver.phone_number, db)).first() is not None:
+
+    if db.query(crud_driver.get_driver_by_phone_number(driver.phone_number, db)).first()[0] is not None:
         raise HTTPException(status_code=409, detail="Driver already exists")
     return crud_driver.create_driver(driver, db)
 
