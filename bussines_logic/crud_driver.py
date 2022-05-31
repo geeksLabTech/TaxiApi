@@ -5,23 +5,24 @@ from typing import Union
 from fastapi import Depends
 
 
-def get_driver(driver_id: int, db: Session ):
+def get_driver(driver_id: int, db: Session):
     return db.query(models.DriverDB).filter(models.DriverDB.id == driver_id).first()
 
 
-def get_driver_by_ci(ci: str, db: Session ):
+def get_driver_by_ci(ci: str, db: Session):
     return db.query(models.DriverDB).filter(models.DriverDB.ci == ci).first()
 
 
-def get_driver_by_phone_number(phone_number: str, db: Session ):
+def get_driver_by_phone_number(phone_number: str, db: Session):
     return db.query(models.DriverDB).filter(models.DriverDB.phone_number == phone_number).first()
 
 
-def get_all_drivers(db: Session ):
+def get_all_drivers(db: Session):
     return db.query(models.DriverDB).all()
 
 
-def create_driver(driver: Driver, db: Session ):
+def create_driver(driver: Driver, db: Session):
+    print("here")
     db_driver = models.DriverDB(ci=driver.ci, name=driver.name,
                                 phone_number=driver.phone_number, password=driver.password)
     db.add(db_driver)
@@ -40,7 +41,7 @@ def create_driver(driver: Driver, db: Session ):
 #     return db_driver
 
 
-def delete_driver(driver_id: int, db: Session ):
+def delete_driver(driver_id: int, db: Session):
     db_driver = db.query(models.DriverDB).filter(
         models.DriverDB.id == driver_id).first()
     db.delete(db_driver)
