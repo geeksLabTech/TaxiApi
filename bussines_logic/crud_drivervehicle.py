@@ -7,10 +7,10 @@ from schemas import DriverVehicle
 
 def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
     dv = db.query(table_driver_vehicle).all()
-    out = []
     for i in dv:
         if(int(i[0]) == int(driver_id) and int(i[1]) == int(vehicle_id)):
-            out.append(i)
+            out = i
+            break
     print(out)
     return out
 
