@@ -1,6 +1,15 @@
-from sqlalchemy import Column, Float, Integer, String, ForeignKey, DateTime, Boolean
+from sqlalchemy import Column, Float, Integer, String, ForeignKey, DateTime, Boolean, Table
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
+from tables import Col
 from database import Base
+
+DecBase = declarative_base()
+
+table_driver_vehicle = Table(
+    'driver_vehicle', DecBase.metadata,
+    Column("driver_id", Integer, ForeignKey("driver.id")),
+    Column('vehicle_id', Integer, ForeignKey('vehicle.id')))
 
 
 class PassengerDB(Base):
@@ -21,7 +30,8 @@ class DriverDB(Base):
     name = Column(String(64), nullable=False)
     phone_number = Column(String(64), nullable=False)
     password = Column(String(64), nullable=False)
-    vehicle = relationship("VehicleDB", back_populates="driver")
+    vehicles = relationship(
+        "VehicleDB", secondary=table_driver_vehicle, backref="drivers")
 
 
 class VehicleDB(Base):
@@ -33,9 +43,8 @@ class VehicleDB(Base):
     color = Column(String(64), nullable=False)
     license_plate = Column(String(64), nullable=False)
     seats = Column(Integer, nullable=False)
-    driver_id = Column(Integer, ForeignKey('driver.id'), nullable=False)
-    # driver = relationship("DriverDB", back_populates="vhicles?")
-    driver = relationship("DriverDB", back_populates="vehicle")
+    drivers = relationship(
+        "DriverDB", secondary=table_driver_vehicle, backref="vehicles")
     model = Column(String(64), nullable=False)
 
 
