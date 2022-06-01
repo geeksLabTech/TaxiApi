@@ -10,14 +10,17 @@ DecBase = declarative_base()
 table_driver_vehicle = Table(
     'driver_vehicle', Base.metadata,
     Column("driver_id", Integer, ForeignKey("driver.id"), nullable=True),
-    Column("vehicle_id", Integer, ForeignKey("vehicle.id"), nullable=True))
+    Column("vehicle_id", Integer, ForeignKey("vehicle.id"), nullable=True),
+    __table_args__ = {'extend_existing': True}
+    )
 
 
 table_trip = Table(
     'trip', Base.metadata,
     Column("driver_id", Integer, ForeignKey("driver.id"), nullable=True),
     Column("vehicle_id", Integer, ForeignKey("vehicle.id"), nullable=True),
-    Column("passanger_id",Integer,ForeignKey("passanger_id"),nullable = True))
+    Column("passanger_id",Integer,ForeignKey("passanger_id"),nullable = True),
+    __table_args__ = {'extend_existing': True})
 
 class PassengerDB(Base):
     __tablename__ = 'passenger'

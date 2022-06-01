@@ -1,4 +1,4 @@
-from ...models import TripDB
+from ...models import table_trip
 
 
 TRIP_ONE = {
@@ -34,8 +34,8 @@ TRIP_THREE = {
     "status": "CANCELED"
 }
 
-TRIP_DB_ONE = TripDB(**TRIP_ONE)
-TRIP_DB_TWO = TripDB(**TRIP_TWO)
-TRIP_DB_THREE = TripDB(**TRIP_THREE)
+TRIP_DB_ONE = table_trip(**TRIP_ONE)
+TRIP_DB_TWO = table_trip(**TRIP_TWO)
+TRIP_DB_THREE = table_trip(**TRIP_THREE)
 
 TRIPS_DB = [TRIP_DB_ONE, TRIP_DB_TWO, TRIP_DB_THREE]
