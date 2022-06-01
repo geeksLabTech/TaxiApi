@@ -37,6 +37,10 @@ def get_place_by_name(name: str, db: Session = Depends(get_db)):
 def create_place(place: Place, db: Session = Depends(get_db)):
     return crud_place.create_place(place, db)
 
+@router.put("/{place_id}",response_model= Place)
+def update_places(place_id : int , name : str , address :str , latitude : str , longitude :str , db:Session = Depends(get_db)):
+    return crud_place.update_famousplace(place_id,name,address,latitude,longitude,db)
+
 
 @router.delete("/{place_id}", response_model=Place)
 def delete_place(place_id: int, db: Session = Depends(get_db)):

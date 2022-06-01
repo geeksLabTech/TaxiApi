@@ -1,4 +1,4 @@
-from turtle import distance
+
 from sqlalchemy.orm import Session
 import models
 from models import TripDB

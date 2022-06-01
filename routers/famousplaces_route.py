@@ -35,6 +35,10 @@ def get_famousplaces_by_name(name: str, db: Session = Depends(get_db)):
 def create_famousplace(famousplaces: FamousPlaces, db: Session = Depends(get_db)):
     return crud_famousplaces.create_famousplace(famousplaces, db)
 
+@router.put("/{famousplaces_id}",response_model= FamousPlaces)
+def update_famousplaces(famousplaces_id : int , name : str , address :str , latitude : str , longitude :str , db:Session = Depends(get_db)):
+    return crud_famousplaces.update_famousplace(famousplaces_id,name,address,latitude,longitude,db)
+
 
 @router.delete("/{famousplaces_id}", response_model=FamousPlaces)
 def delete_famousplace(famousplaces_id: int, db: Session = Depends(get_db)):

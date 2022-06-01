@@ -21,17 +21,17 @@ def create_vehicle(vehicle: Vehicle, db: Session):
     return db_vehicle
 
 
-# def update_vehicle(db: Session, vehicle_id: int, vehicle: VehicleDB):
-#     db_vehicle = db.query(VehicleDB).filter(
-#         VehicleDB.id == vehicle_id).first()
-#     db_vehicle.license_plate = vehicle.license_plate
-#     db_vehicle.brand = vehicle.brand
-#     db_vehicle.model = vehicle.model
-#     db_vehicle.color = vehicle.color
-#     db_vehicle.year = vehicle.year
-#     db_vehicle.driver_id = vehicle.driver_id
-#     db.commit()
-#     return db_vehicle
+def update_vehicle(vehicle_id: int, license_plate : str,brand : str , model : str ,color : str ,year : str ,db: Session):
+    db_vehicle = db.query(VehicleDB).filter(
+        VehicleDB.id == vehicle_id).first()
+    db_vehicle.license_plate = license_plate
+    db_vehicle.brand = brand
+    db_vehicle.model = model
+    db_vehicle.color = color
+    db_vehicle.year = year
+    db_vehicle.driver_id = vehicle_id
+    db.commit()
+    return db_vehicle
 
 
 def delete_vehicle(vehicle_id: int, db: Session):
