@@ -31,10 +31,11 @@ def get_famousplaces_by_name(name: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="FamousPlaces not found")
     return famousplace
 
-router.post("/", response_model=FamousPlaces)
+@router.post("/", response_model=FamousPlaces)
 def create_famousplace(famousplaces: FamousPlaces, db: Session = Depends(get_db)):
     return crud_famousplaces.create_famousplace(famousplaces, db)
 
-router.delete("/{famousplaces_id}", response_model=FamousPlaces)
+
+@router.delete("/{famousplaces_id}", response_model=FamousPlaces)
 def delete_famousplace(famousplaces_id: int, db: Session = Depends(get_db)):
     return crud_famousplaces.delete_famousplace(famousplaces_id, db)

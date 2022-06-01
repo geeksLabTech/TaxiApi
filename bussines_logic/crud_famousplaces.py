@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-import schemas
 from models import PlaceDB, FamousPlacesDB
 from schemas import FamousPlaces
 from fastapi import Depends
@@ -26,15 +25,15 @@ def create_famousplace(place: FamousPlaces, db: Session ):
     return db_place
 
 
-# def update_famousplace(db: Session, place_id: int, place: schemas.PlaceUpdate):
-#     db_place = db.query(PlaceDB).filter(
-#         PlaceDB.id == place_id).first()
-#     db_place.name = place.name
-#     db_place.address = place.address
-#     db_place.latitude = place.latitude
-#     db_place.longitude = place.longitude
-#     db.commit()
-#     return db_place
+def update_famousplace (place_id: int, name : str , address : str , latitude :str , longitude : str,db : Session):
+    db_place = db.query(PlaceDB).filter(
+        PlaceDB.id == place_id).first()
+    db_place.name = name
+    db_place.address = address
+    db_place.latitude = latitude
+    db_place.longitude = longitude
+    db.commit()
+    return db_place
 
 
 def delete_famousplace(place_id: int, db: Session ):

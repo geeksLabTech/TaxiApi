@@ -37,6 +37,10 @@ def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_d
 def create_passenger(passenger: Passenger, db: Session = Depends(get_db)):
     return crud_passenger.create_passenger(passenger, db)
 
+@router.put("/{passenger_id}",response_model=Passenger)
+def update_passenger(passenger_id:int,name : str , phone_number :str , password : str ,db:Session = Depends(get_db)):
+    return crud_passenger.update_passenger(passenger_id,name,phone_number,password,db)
+
 
 @router.delete("/{passenger_id}", response_model=Passenger)
 def delete_passenger(passenger_id: int, db: Session = Depends(get_db)):

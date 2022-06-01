@@ -48,6 +48,10 @@ def create_driver(driver: Driver, db: Session = Depends(get_db)):
         raise HTTPException(status_code=409, detail="Driver already exists")
     return crud_driver.create_driver(driver, db)
 
+@router.put("/{driver_id}",response_model=Driver)
+def update_driver(driver_id : int , name : str , phone_number :str , password : str , db:Session = Depends(get_db)) :
+    return crud_driver.update_driver(driver_id,name,phone_number,password,db)
+
 
 @router.delete("/{driver_id}", response_model=Driver)
 def delete_driver(driver_id: int, db: Session = Depends(get_db)):

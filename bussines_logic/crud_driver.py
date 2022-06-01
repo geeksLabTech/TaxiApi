@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 import models
+import schemas
 from schemas import Driver
 from typing import Union
 from fastapi import Depends
@@ -31,14 +32,14 @@ def create_driver(driver: Driver, db: Session):
     return db_driver
 
 
-# def update_driver(db: Session, driver_id: int, driver: schemas.Driver):
-#     db_driver: Union[models.DriverDB, None] = db.query(models.DriverDB).filter(
-#         models.DriverDB.id == driver_id).first()
-#     db_driver.name = driver.name
-#     db_driver.phone_number = driver.phone_number
-#     db_driver.password = driver.password
-#     db.commit()
-#     return db_driver
+def update_driver(driver_id: int, name : str,phone_number : str,password :str, db:Session):
+    db_driver: Union[models.DriverDB, None] = db.query(models.DriverDB).filter(
+        models.DriverDB.id == driver_id).first()
+    db_driver.name = name
+    db_driver.phone_number = phone_number
+    db_driver.password = password
+    db.commit()
+    return db_driver
 
 
 def delete_driver(driver_id: int, db: Session):
