@@ -6,10 +6,17 @@ from schemas import DriverVehicle
 
 
 def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
-    return db.query(table_driver_vehicle).filter(table_driver_vehicle.driver_id == driver_id, table_driver_vehicle.vehicle_id == vehicle_id).first()
+    dv = db.query(table_driver_vehicle).all()
+    out = []
+    for i in dv:
+        if(int(i[0]) == int(driver_id) and int(i[1]) == int(vehicle_id)):
+            out.append(i)
+    print(out)
+    return out
 
 
 def get_all_drivervehicles(db: Session):
+    print(db.query(table_driver_vehicle).all())
     return db.query(table_driver_vehicle).all()
 
 
@@ -22,13 +29,6 @@ def create_drivervehicle(drivervehicle: DriverVehicle, db: Session):
         return drivervehicle
     except:
         return "Something went Wrong"
-
-
-# def update_drivervehicle(db: Session, driver_id: int, vehicle_id: int, drivervehicle: DriverVehicle):
-#     db_drivervehicle = db.query(table_driver_vehicle).filter(
-#         table_driver_vehicle.driver_id == driver_id, table_driver_vehicle.vehicle_id == vehicle_id).first()
-#     db_drivervehicle.driver_id = drivervehicle.driver_id
-#     db_drivervehicle.vehicle_id = drivervehicle.vehicle_id
 
 
 def delete_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
