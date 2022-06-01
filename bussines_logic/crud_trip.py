@@ -1,28 +1,35 @@
 from sqlalchemy.orm import Session
-from models import TripDB
-from schemas import Trip
+import models
+from models import table_trip
+from routers import trip_route
+from schemas import DriverVehicle, Trip
+from schemas import Passenger
 
 
 def get_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
-    return db.query(TripDB).filter(TripDB.driver_id == driver_id, TripDB.pasenger_id == pasenger_id, TripDB.vehicle_id == vehicle_id).first()
+    return db.query(table_trip).filter(table_trip.driver_id == driver_id, table_trip.pasenger_id == pasenger_id, table_trip.vehicle_id == vehicle_id).first()
 
 
 def get_all_trips(db: Session):
-    return db.query(TripDB).all()
+    return db.query(table_trip).all()
 
 
 def create_trip(trip: Trip, db: Session):
-    db_trip = TripDB(driver_id=trip.driver_id,
-                     pasenger_id=trip.passenger_id, vehicle_id=trip.vehicle_id)
-    db.add(db_trip)
-    db.commit()
-    db.refresh(db_trip)
-    return db_trip
+    driver = db.query(models.DriverDB).filter(models.DriverDB.id == trip.driver_id).first()
+    vehicle = db.query(models.VehicleDB).filter(models.VehicleDB.id == trip.vehicle_id).first()
+    passanger = db.query(models.PassengerDB).filter(models.PassengerDB.id == trip.passnger_id).first()
+    try:
+        driver.vehicles.append(vehicle)
+        vehicle.passanger.append(passanger)
+        db.commit()
+        return trip
+    except:
+        return "Somethig went wrong"
 
 
-# def update_trip(db: Session, driver_id: int, pasenger_id: int, vehicle_id: int, trip: TripDB):
-#     db_trip = db.query(TripDB).filter(TripDB.driver_id == driver_id,
-#                                       TripDB.pasenger_id == pasenger_id, TripDB.vehicle_id == vehicle_id).first()
+# def update_trip(db: Session, driver_id: int, pasenger_id: int, vehicle_id: int, trip: table_trip):
+#     db_trip = db.query(table_trip).filter(table_trip.driver_id == driver_id,
+#                                       table_trip.pasenger_id == pasenger_id, table_trip.vehicle_id == vehicle_id).first()
 #     db_trip.driver_id = trip.driver_id
 #     db_trip.pasenger_id = trip.pasenger_id
 #     db_trip.vehicle_id = trip.vehicle_id
@@ -30,8 +37,8 @@ def create_trip(trip: Trip, db: Session):
 
 
 def delete_trip(driver_id: int, pasenger_id: int, vehicle_id: int, db: Session):
-    db_trip = db.query(TripDB).filter(TripDB.driver_id == driver_id,
-                                      TripDB.pasenger_id == pasenger_id, TripDB.vehicle_id == vehicle_id).first()
+    db_trip = db.query(table_trip).filter(table_trip.driver_id == driver_id,
+                                      table_trip.pasenger_id == pasenger_id, table_trip.vehicle_id == vehicle_id).first()
     db.delete(db_trip)
     db.commit()
     return db_trip
