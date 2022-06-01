@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 import models
 from models import table_driver_vehicle
+from routers import vehicle_route
 from schemas import DriverVehicle
 
 
@@ -14,9 +15,13 @@ def get_all_drivervehicles(db: Session):
 
 def create_drivervehicle(drivervehicle: DriverVehicle, db: Session):
     driver = db.query(models.DriverDB).filter(models.DriverDB.id == drivervehicle.driver_id).first()
-    driver.vehicles.append(drivervehicle.vehicle_id)
-    db.commit()
-    return 200
+    vehicle = db.query(models.VehicleDB).filter(models.VehicleDB.id == drivervehicle.vehicle_id).first()
+    try:
+        driver.vehicles.append(vehicle)
+        db.commit()
+        return drivervehicle
+    except:
+        return "Something went Wrong"
 
 
 # def update_drivervehicle(db: Session, driver_id: int, vehicle_id: int, drivervehicle: DriverVehicle):
