@@ -32,7 +32,6 @@ class Vehicle(BaseModel):
     license_plate: str
     seats: int
     model: str
-    driver_id: int
 
     class Config:
         orm_mode = True

@@ -7,10 +7,9 @@ from database import Base
 DecBase = declarative_base()
 
 table_driver_vehicle = Table(
-    'driver_vehicle', DecBase.metadata,
-    Column("driver_id", Integer, ForeignKey("driver.id")),
-    Column('vehicle_id', Integer, ForeignKey('vehicle.id')))
-
+    'driver_vehicle', Base.metadata,
+    Column("driver_id", Integer, ForeignKey("driver.id"), nullable=True),
+    Column("vehicle_id", Integer, ForeignKey("vehicle.id"), nullable=True))
 
 class PassengerDB(Base):
     __tablename__ = 'passenger'
@@ -31,7 +30,7 @@ class DriverDB(Base):
     phone_number = Column(String(64), nullable=False)
     password = Column(String(64), nullable=False)
     vehicles = relationship(
-        "VehicleDB", secondary=table_driver_vehicle, backref="drivers")
+        "VehicleDB", secondary=table_driver_vehicle, backref="all_drivers")
 
 
 class VehicleDB(Base):
@@ -44,15 +43,8 @@ class VehicleDB(Base):
     license_plate = Column(String(64), nullable=False)
     seats = Column(Integer, nullable=False)
     drivers = relationship(
-        "DriverDB", secondary=table_driver_vehicle, backref="vehicles")
+        "DriverDB", secondary=table_driver_vehicle, backref="all_vehicles")
     model = Column(String(64), nullable=False)
-
-
-class DriverVehicleDB(Base):
-    __tablename__ = 'driver_vehicle'
-    __table_args__ = {'extend_existing': True}
-    driver_id = Column(Integer, ForeignKey('driver.id'), primary_key=True)
-    vehicle_id = Column(Integer, ForeignKey('vehicle.id'))
 
 
 class PlaceDB(Base):
@@ -91,3 +83,4 @@ class FamousPlacesDB(PlaceDB):
     id = Column(Integer, ForeignKey('places.id'), primary_key=True)
     description = Column(String(64), nullable=False)
     classification = Column(String(64), nullable=False)
+

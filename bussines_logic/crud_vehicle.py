@@ -13,7 +13,7 @@ def get_all_vehicles(db: Session):
 
 
 def create_vehicle(vehicle: Vehicle, db: Session):
-    db_vehicle = VehicleDB(license_plate=vehicle.license_plate, brand=vehicle.brand,
+    db_vehicle = VehicleDB(name=vehicle.name,license_plate=vehicle.license_plate, brand=vehicle.brand,seats=vehicle.seats,
                            model=vehicle.model, color=vehicle.color)
     db.add(db_vehicle)
     db.commit()
