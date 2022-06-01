@@ -12,15 +12,20 @@ from ..main import app
     
 
 def test_get_passenger():
-    db = override_get_db()
+    # db = override_get_db()
     client = TestClient(app)
+    # onnection = engine.connect()
     response = client.get("/passenger/1")
     assert response.status_code == 200
     data = response.json()
     assert data["name"] == "John Doe"
     assert data["phone_number"] == "55193109"
     assert data["password"] == "12345"
-
+    # transaction = connection.begin()
+    # db = session(bind = connection)
+    # yield db
+    # db.rollback()
+    # connection.close()
 
 def test_get_passenger_by_phone_number():
     db = override_get_db()
