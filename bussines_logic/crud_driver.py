@@ -22,7 +22,6 @@ def get_all_drivers(db: Session):
 
 
 def create_driver(driver: Driver, db: Session):
-    print("here")
     db_driver = models.DriverDB(ci=driver.ci, name=driver.name,
                                 phone_number=driver.phone_number, password=driver.password)
     db.add(db_driver)
