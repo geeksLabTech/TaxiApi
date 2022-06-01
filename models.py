@@ -14,16 +14,6 @@ table_driver_vehicle = Table(
     # __table_args__ = {'extend_existing': True}
     )
 
-
-table_trip = Table(
-    'trip', Base.metadata,
-    Column("trip_id",Integer,ForeignKey("trip.id"),nullable = True),
-    Column("driver_id", Integer, ForeignKey("driver.id"), nullable=True),
-    Column("vehicle_id", Integer, ForeignKey("vehicle.id"), nullable=True),
-    Column("passanger_id",Integer,ForeignKey("passanger.id"),nullable = True),
-    # __table_args__ = {'extend_existing': True}
-    )
-
 class PassengerDB(Base):
     __tablename__ = 'passenger'
     __table_args__ = {'extend_existing': True}
@@ -31,7 +21,7 @@ class PassengerDB(Base):
     name = Column(String(64), nullable=False)
     phone_number = Column(String(64), nullable=False)
     password = Column(String(64), nullable=False)
-    trips = relationship("TripDB", back_populates="passenger")
+    trips = relationship("TripDB", backref="passenger")
 
 
 class DriverDB(Base):
@@ -57,6 +47,7 @@ class VehicleDB(Base):
     seats = Column(Integer, nullable=False)
     drivers = relationship(
         "DriverDB", secondary=table_driver_vehicle, backref="all_vehicles")
+    trips = relationship("TripDB", backref="vehicle")
     model = Column(String(64), nullable=False)
 
 
@@ -64,11 +55,10 @@ class PlaceDB(Base):
     __tablename__ = 'places'
     __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(64), nullable=False)
-    address = Column(String(64), nullable=False)
+    name = Column(String(64), nullable=True)
+    address = Column(String(64), nullable=True)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
-    trips = relationship("TripDB", back_populates="destination")
 
 
 class TripDB(Base):
@@ -79,15 +69,23 @@ class TripDB(Base):
     time = Column(String(64), nullable=False)
     price = Column(Float, nullable=False)
     distance = Column(Float, nullable=False)
-    origin = Column(Integer, ForeignKey('places.id'), nullable=False)
     status = Column(String(64), nullable=False)
-    destination = relationship("PlaceDB", back_populates='trips')
+
+    origin_id = Column(
+        Integer, ForeignKey('places.id'), nullable=False)
+    destination_id = Column(
+        Integer, ForeignKey('places.id'), nullable=False)
+    
+    origin = relationship("PlaceDB", foreign_keys=[origin_id])
+    destination = relationship("PlaceDB", foreign_keys=[destination_id])
+    
     driver_id = Column(
         Integer, ForeignKey('driver.id'), nullable=False)
     vehicle_id = Column(
         Integer, ForeignKey('vehicle.id'), nullable=False)
-    passenger_id = Column(Integer, ForeignKey('passenger.id'), nullable=False)
-    passenger = relationship('PassengerDB', back_populates='trips')
+    passenger_id = Column(
+        Integer, ForeignKey('passenger.id'), nullable=False)
+
 
 
 class FamousPlacesDB(PlaceDB):
