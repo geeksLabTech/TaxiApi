@@ -16,8 +16,13 @@ def get_all_trips(db: Session):
 
 
 def create_trip(trip: Trip, db: Session):
+    print("/n/n/n/n/n/n")
+    origin = db.query(models.PlaceDB).filter(models.PlaceDB.id == trip.origin_id).first()
+    print(origin)
+    destination = db.query(models.PlaceDB).filter(models.PlaceDB.id == trip.destination_id).first()
     db_trip = TripDB(
-        date=trip.date, time=trip.time, price=trip.price, distance=trip.distance, origin=trip.origin, destination=trip.destination,
+        id=trip.id,
+        date=trip.date, time=trip.time, price=trip.price, distance=trip.distance, origin_id=trip.origin_id, destination_id=trip.destination_id,
         status=trip.status, driver_id=trip.driver_id, passenger_id=trip.passenger_id, vehicle_id=trip.vehicle_id)
 
     try:

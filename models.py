@@ -11,7 +11,6 @@ table_driver_vehicle = Table(
     'driver_vehicle', Base.metadata,
     Column("driver_id", Integer, ForeignKey("driver.id"), nullable=True),
     Column("vehicle_id", Integer, ForeignKey("vehicle.id"), nullable=True),
-    __table_args__ = {'extend_existing': True}
     )
 
 class PassengerDB(Base):
@@ -75,10 +74,10 @@ class TripDB(Base):
         Integer, ForeignKey('places.id'), nullable=False)
     destination_id = Column(
         Integer, ForeignKey('places.id'), nullable=False)
-    
+
     origin = relationship("PlaceDB", foreign_keys=[origin_id])
     destination = relationship("PlaceDB", foreign_keys=[destination_id])
-    
+
     driver_id = Column(
         Integer, ForeignKey('driver.id'), nullable=False)
     vehicle_id = Column(
