@@ -75,10 +75,10 @@ class TripDB(Base):
         Integer, ForeignKey('places.id'), nullable=False)
     destination_id = Column(
         Integer, ForeignKey('places.id'), nullable=False)
-    
-    origin = relationship("PlaceDB", foreign_keys=[origin_id])
-    destination = relationship("PlaceDB", foreign_keys=[destination_id])
-    
+
+    origin = relationship("PlaceDB", foreign_keys=[origin_id], uselist=False)
+    destination = relationship("PlaceDB", foreign_keys=[destination_id], uselist=False)
+
     driver_id = Column(
         Integer, ForeignKey('driver.id'), nullable=False)
     vehicle_id = Column(

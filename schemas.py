@@ -69,9 +69,8 @@ class Trip(BaseModel):
     time: str
     price: float
     distance: float
-    #TODO Cambiarlo a latitud y longitud
-    origin: int
-    destination: int
+    origin_id: int
+    destination_id: int
     driver_id: int
     passenger_id: int
     vehicle_id: int
