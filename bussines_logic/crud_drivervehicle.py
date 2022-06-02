@@ -11,7 +11,7 @@ def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
         if(int(i[0]) == int(driver_id) and int(i[1]) == int(vehicle_id)):
             out = i
             break
-    print(out)
+    # print(out)
     return out
 
 
