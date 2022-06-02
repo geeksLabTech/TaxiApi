@@ -12,12 +12,12 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.get("/", response_model=List[Trip])
+@router.get("/")
 def get_all_trips(db: Session = Depends(get_db)):
     return crud_trip.get_all_trips(db)
 
 
-router.get("/{trip_id}", response_model=Trip)
+router.get("/{trip_id}")
 def get_trip(trip_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depends(get_db)):
     trip = crud_trip.get_trip(trip_id, pasenger_id, vehicle_id, db)
     if not trip:
@@ -25,11 +25,11 @@ def get_trip(trip_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depe
     return trip
 
 
-@router.post("/", response_model=Trip)
+@router.post("/")
 def create_trip(trip: Trip, db: Session = Depends(get_db)):
     return crud_trip.create_trip(trip, db)
 
 
-@router.delete("/{trip_id}", response_model=Trip)
+@router.delete("/{trip_id}")
 def delete_trip(trip_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depends(get_db)):
     return crud_trip.delete_trip(trip_id, pasenger_id, vehicle_id, db)
