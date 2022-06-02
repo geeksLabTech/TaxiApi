@@ -10,7 +10,6 @@ def get_passenger(passenger_id: int, db: Session ):
 def get_passenger_by_phone_number(phone_number: str, db: Session ):
     return db.query(PassengerDB).filter(PassengerDB.phone_number == phone_number).first()
 
-
 def get_all_passengers(db: Session ):
     return db.query(PassengerDB).all()
 

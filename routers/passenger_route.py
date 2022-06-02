@@ -28,6 +28,7 @@ def get_passenger(passenger_id: int, db: Session = Depends(get_db)):
 @router.get("/phone_number/{phone_number}", response_model=Passenger)
 def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_db)):
     passenger = crud_passenger.get_passenger_by_phone_number(phone_number, db)
+    print(passenger)
     if not passenger:
         raise HTTPException(status_code=404, detail="Passenger not found")
     return passenger
@@ -35,7 +36,10 @@ def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_d
 
 @router.post("/", response_model=Passenger)
 def create_passenger(passenger: Passenger, db: Session = Depends(get_db)):
+    if crud_passenger.get_passenger_by_phone_number(passenger.phone_number, db) is not None:
+        raise HTTPException(status_code=409, detail="Passenger already exists")
     return crud_passenger.create_passenger(passenger, db)
+
 
 @router.put("/{passenger_id}",response_model=Passenger)
 def update_passenger(passenger_id:int,name : str , phone_number :str , password : str ,db:Session = Depends(get_db)):

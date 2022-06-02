@@ -44,7 +44,7 @@ def get_driver_by_ci(ci: str, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=Driver)
 def create_driver(driver: Driver, db: Session = Depends(get_db)):
-    if db.query(crud_driver.get_driver_by_phone_number(driver.phone_number, db)).first()[0] is not None:
+    if (crud_driver.get_driver_by_phone_number(driver.phone_number, db)) is not None:
         raise HTTPException(status_code=409, detail="Driver already exists")
     return crud_driver.create_driver(driver, db)
 
