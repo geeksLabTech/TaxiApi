@@ -1,3 +1,4 @@
+from lib2to3.pgen2 import driver
 from fastapi import APIRouter, Depends, HTTPException
 from schemas import Driver
 from typing import List
@@ -45,11 +46,15 @@ def get_driver_by_ci(ci: str, db: Session = Depends(get_db)):
 @router.post("/", response_model=Driver)
 def create_driver(driver: Driver, db: Session = Depends(get_db)):
     if (crud_driver.get_driver_by_phone_number(driver.phone_number, db)) is not None:
-        raise HTTPException(status_code=409, detail="Driver already exists")
+        raise HTTPException(status_code=409, detail="There is already a driver with this phone number")
+    if((crud_driver.get_driver_by_ci(driver.ci,db)) is not None):
+        raise HTTPException(status_code=409, detail="There is already a driver with this ci")
     return crud_driver.create_driver(driver, db)
 
 @router.put("/{driver_id}",response_model=Driver)
 def update_driver(driver_id : int , name : str , phone_number :str , password : str , db:Session = Depends(get_db)) :
+    if(crud_driver.get_driver(driver_id,db) is None):
+        raise HTTPException(status_code=409, detail="This driver not exist")
     return crud_driver.update_driver(driver_id,name,phone_number,password,db)
 
 

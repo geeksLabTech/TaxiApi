@@ -11,7 +11,6 @@ def get_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
         if(int(i[0]) == int(driver_id) and int(i[1]) == int(vehicle_id)):
             out = i
             break
-    # print(out)
     return out
 
 
@@ -32,8 +31,7 @@ def create_drivervehicle(drivervehicle: DriverVehicle, db: Session):
 
 
 def delete_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
-    db_drivervehicle = db.query(table_driver_vehicle).filter(
-        table_driver_vehicle.driver_id == driver_id, table_driver_vehicle.vehicle_id == vehicle_id).first()
-    db.delete(db_drivervehicle)
-    db.commit()
-    return db_drivervehicle
+    driver_vehicle = get_drivervehicle(driver_id,vehicle_id,db)
+    table_driver_vehicle.delete(driver_vehicle)
+    return table_driver_vehicle
+

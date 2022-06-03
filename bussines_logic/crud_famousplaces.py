@@ -5,40 +5,40 @@ from fastapi import Depends
 
 
 def get_famousplace(place_id: int, db: Session ):
-    return db.query(PlaceDB).filter(PlaceDB.id == place_id).first()
+    return db.query(FamousPlacesDB).filter(FamousPlacesDB.id == place_id).first()
 
 
 def get_all_famousplaces(db: Session ):
-    return db.query(PlaceDB).all()
+    return db.query(FamousPlacesDB).all()
 
 
 def get_famousplaces_by_name(name: str, db: Session ):
-    return db.query(PlaceDB).filter(PlaceDB.name == name).first()
+    return db.query(FamousPlacesDB).filter(FamousPlacesDB.name == name).first()
 
 
-def create_famousplace(place: FamousPlaces, db: Session ):
-    db_place = PlaceDB(
-        name=place.name, address=place.address, latitude=place.latitude, longitude=place.longitude)
-    db.add(db_place)
+def create_famousplace(famousplace: FamousPlaces, db: Session ):
+    db_famousplace = FamousPlacesDB(
+        name=famousplace.name, address=famousplace.address, latitude=famousplace.latitude, longitude=famousplace.longitude)
+    db.add(db_famousplace)
     db.commit()
-    db.refresh(db_place)
-    return db_place
+    db.refresh(db_famousplace)
+    return db_famousplace
 
 
-def update_famousplace (place_id: int, name : str , address : str , latitude :str , longitude : str,db : Session):
-    db_place = db.query(PlaceDB).filter(
-        PlaceDB.id == place_id).first()
-    db_place.name = name
-    db_place.address = address
-    db_place.latitude = latitude
-    db_place.longitude = longitude
+def update_famousplace (famousplace_id: int, name : str , address : str , latitude :str , longitude : str,db : Session):
+    db_famousplace = db.query(FamousPlacesDB).filter(
+        FamousPlacesDB.id == famousplace_id).first()
+    db_famousplace.name = name
+    db_famousplace.address = address
+    db_famousplace.latitude = latitude
+    db_famousplace.longitude = longitude
     db.commit()
-    return db_place
+    return db_famousplace
 
 
-def delete_famousplace(place_id: int, db: Session ):
-    db_place = db.query(PlaceDB).filter(
-        PlaceDB.id == place_id).first()
-    db.delete(db_place)
+def delete_famousplace(famousplace_id: int, db: Session ):
+    db_famousplace = db.query(FamousPlacesDB).filter(
+        FamousPlacesDB.id == famousplace_id).first()
+    db.delete(db_famousplace)
     db.commit()
-    return db_place
+    return db_famousplace

@@ -23,9 +23,15 @@ def get_vehicle(vehicle_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Vehicle not found")
     return vehicle
 
+@router.get("/lincense_plate/{license_plate}",response_model= Vehicle)
+def get_vehicle_for_lincense_plate(license_plate:str, db :Session = Depends(get_db)):
+    return crud_vehicle.get_vehicle_by_license_plate(license_plate,db)
+
 
 @router.post("/", response_model=Vehicle)
 def create_vehicle(vehicle: Vehicle, db: Session = Depends(get_db)):
+    if(crud_vehicle.get_vehicle_by_license_plate(vehicle.license_plate,db) is not None):
+         raise HTTPException(status_code=409, detail="There is already a vehicle with this license plate")
     return crud_vehicle.create_vehicle(vehicle, db)
 
 @router.put("/{vehicle_id}",response_model=Vehicle)
