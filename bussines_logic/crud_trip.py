@@ -34,12 +34,10 @@ def create_trip(trip: Trip, db: Session):
         driver_id=trip.driver_id , 
         passenger_id=trip.passenger_id , 
         vehicle_id=trip.vehicle_id , 
-        origin=origin, 
-        destination=destination)
+        )
     
-    print(trip.id)
+    # try:    print(trip.id)
 
-    # try:
     db.add(db_trip)
     db.commit()
     db.refresh(db_trip)
