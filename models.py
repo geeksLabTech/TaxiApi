@@ -2,7 +2,6 @@
 from sqlalchemy import Column, Float, Integer, String, ForeignKey, DateTime, Boolean, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-# from tables import Col
 from database import Base
 
 DecBase = declarative_base()

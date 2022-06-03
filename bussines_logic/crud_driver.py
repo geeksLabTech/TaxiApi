@@ -38,6 +38,7 @@ def update_driver(driver_id: int, name : str,phone_number : str,password :str, d
     db_driver.phone_number = phone_number
     db_driver.password = password
     db.commit()
+    
     return db_driver
 
 

@@ -39,3 +39,4 @@ def delete_passenger(passenger_id: int, db: Session ):
     db.delete(db_passenger)
     db.commit()
     return db_passenger
+
