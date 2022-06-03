@@ -60,6 +60,7 @@ def update_driver(driver_id : int , name : str , phone_number :str , password : 
 
 @router.delete("/{driver_id}", response_model=Driver)
 def delete_driver(driver_id: int, db: Session = Depends(get_db)):
+    print(crud_driver.get_driver(driver_id, db))
     if crud_driver.get_driver(driver_id, db) is None:
         raise HTTPException(status_code=404, detail="Driver not found")
     return crud_driver.delete_driver(driver_id, db)

@@ -22,16 +22,18 @@ def get_all_drivervehicles(db: Session):
 def create_drivervehicle(drivervehicle: DriverVehicle, db: Session):
     driver = db.query(models.DriverDB).filter(models.DriverDB.id == drivervehicle.driver_id).first()
     vehicle = db.query(models.VehicleDB).filter(models.VehicleDB.id == drivervehicle.vehicle_id).first()
-    try:
-        driver.vehicles.append(vehicle)
-        db.commit()
-        return drivervehicle
-    except:
-        return "Something went Wrong"
-
+    
+    driver.vehicles.append(vehicle)
+    db.commit()
+    return drivervehicle
+    
 
 def delete_drivervehicle(driver_id: int, vehicle_id: int, db: Session):
-    driver_vehicle = get_drivervehicle(driver_id,vehicle_id,db)
-    table_driver_vehicle.delete(driver_vehicle)
-    return table_driver_vehicle
-
+    driver = db.query(models.DriverDB).filter(models.DriverDB.id == driver_id).first()
+    vehicle = db.query(models.VehicleDB).filter(models.VehicleDB.id == vehicle_id).first()
+    try:
+        driver.vehicles.remove(vehicle)
+        db.commit()
+        return {'message': 'DriverVehicle deleted'}
+    except:
+        return "Something went Wrong"

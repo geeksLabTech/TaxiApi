@@ -25,11 +25,11 @@ def get_drivervehicle(driver_id: int, vehicle_id, db: Session = Depends(get_db))
     return drivervehicle
 
 
-@router.post("/", response_model=DriverVehicle)
+@router.post("/")
 def create_drivervehicle(drivervehicle: DriverVehicle, db: Session = Depends(get_db)):
     return crud_drivervehicle.create_drivervehicle(drivervehicle, db)
 
 
-@router.delete("/{driver_id}/{vehicle_id}", response_model=DriverVehicle)
+@router.delete("/{driver_id}/{vehicle_id}")
 def delete_drivervehicle(driver_id: int, vehicle_id: int, db: Session = Depends(get_db)):
     return crud_drivervehicle.delete_drivervehicle(driver_id, vehicle_id, db)
