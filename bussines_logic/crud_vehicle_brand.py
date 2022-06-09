@@ -10,10 +10,8 @@ def get_brand_by_id(brand_id: int, db: Session ):
 def get_all_vehiclebrands(db: Session ):
     return db.query(VehicleBrandDB).all()
 
-
 def get_vehiclebrand_by_name(name: str, db: Session ):
     return db.query(VehicleBrandDB).filter(VehicleBrandDB.name == name).first()
-
 
 def create_vehiclebrand(vehiclebrand: VehicleBrand, db: Session ):
     db_vehiclebrand = VehicleBrandDB(

@@ -27,10 +27,8 @@ class Driver(BaseModel):
 class Vehicle(BaseModel):
     id: int
     name: str
-    brand: int
     color: str
     license_plate: str
-    seats: int
     model: str
 
     class Config:
@@ -88,5 +86,13 @@ class FamousPlaces(Place):
 class VehicleBrand(BaseModel):
     id: int
     name: str
+    class Config:
+        orm_mode = True
+
+class VehicleModel(BaseModel):
+    id: int
+    brand_id: int
+    name: str
+    seats: int
     class Config:
         orm_mode = True

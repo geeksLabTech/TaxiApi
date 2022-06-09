@@ -40,14 +40,12 @@ class VehicleDB(Base):
     __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
-    brand = Column(Integer, ForeignKey("vehicle_brand.id"), nullable=False)
     color = Column(String(64), nullable=False)
     license_plate = Column(String(64), nullable=False)
-    seats = Column(Integer, nullable=False)
     drivers = relationship(
         "DriverDB", secondary=table_driver_vehicle, backref="all_vehicles")
     trips = relationship("TripDB", backref="vehicle")
-    model = Column(String(64), nullable=False)
+    model = Column(Integer, ForeignKey("vehicle_model.id"), nullable=False)
 
 
 class PlaceDB(Base):
@@ -99,3 +97,11 @@ class VehicleBrandDB(Base):
     __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
+    
+class VehicleModelDB(Base):
+    __tablename__ = 'vehicle_model'
+    __table_args__ = {'extend_existing': True}
+    id = Column(Integer, primary_key=True, index=True)
+    brand_id = Column(Integer, ForeignKey('vehicle_brand.id'), nullable=False)
+    name = Column(String(64), nullable=False)
+    seats = Column(Integer, nullable=False)

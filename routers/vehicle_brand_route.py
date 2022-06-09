@@ -7,8 +7,8 @@ from dependencies import get_db
 
 
 router = APIRouter(
-    prefix="/vehiclebrands",
-    tags=["Vehiclebrands"],
+    prefix="/vehiclebrand",
+    tags=["Vehiclebrand"],
     responses={404: {"description": "Not found"}},
 )
 
