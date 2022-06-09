@@ -27,7 +27,7 @@ class Driver(BaseModel):
 class Vehicle(BaseModel):
     id: int
     name: str
-    brand: str
+    brand: int
     color: str
     license_plate: str
     seats: int
@@ -57,10 +57,11 @@ class Place(BaseModel):
 
 
 class Status(str, Enum):
-    ACCEPTED = 'ACCEPTED'
-    REJECTED = 'REJECTED'
-    CANCELED = 'CANCELED'
-    FINISHED = 'FINISHED'
+    ACCEPTED              = 'ACCEPTED'
+    REJECTED_BY_PASSENGER = 'REJECTED_BY_PASSENGER'
+    REJECTED_BY_DRIVER    = 'REJECTED_BY_DRIVER'
+    CANCELED              = 'CANCELED'
+    FINISHED              = 'FINISHED'
 
 
 class Trip(BaseModel):
@@ -83,3 +84,9 @@ class Trip(BaseModel):
 class FamousPlaces(Place):
     description: str
     clasification: str
+
+class VehicleBrand(BaseModel):
+    id: int
+    name: str
+    class Config:
+        orm_mode = True

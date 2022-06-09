@@ -40,7 +40,7 @@ class VehicleDB(Base):
     __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(64), nullable=False)
-    brand = Column(String(64), nullable=False)
+    brand = Column(Integer, ForeignKey("vehicle_brand.id"), nullable=False)
     color = Column(String(64), nullable=False)
     license_plate = Column(String(64), nullable=False)
     seats = Column(Integer, nullable=False)
@@ -94,3 +94,8 @@ class FamousPlacesDB(PlaceDB):
     description = Column(String(64), nullable=False)
     classification = Column(String(64), nullable=False)
 
+class VehicleBrandDB(Base):
+    __tablename__ = 'vehicle_brand'
+    __table_args__ = {'extend_existing': True}
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(64), nullable=False)
