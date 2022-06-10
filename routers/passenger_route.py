@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import Passenger
+from schemas import LoginPassenger, Passenger
 from typing import List
 from sqlalchemy.orm import Session
 from bussines_logic import crud_passenger
@@ -32,6 +32,14 @@ def get_passenger_by_phone_number(phone_number: str, db: Session = Depends(get_d
     if not passenger:
         raise HTTPException(status_code=404, detail="Passenger not found")
     return passenger
+
+@router.post("/login", response_model=LoginPassenger)
+def login_passenger(credentials: LoginPassenger, db: Session = Depends(get_db)):
+    passenger = crud_passenger.get_passenger_by_phone_number(credentials.phone_number, db)
+    if passenger and passenger.password == credentials.password:
+        return passenger
+    else:
+        raise HTTPException(status_code=404, detail="Invalid Credentials")
 
 
 @router.post("/", response_model=Passenger)

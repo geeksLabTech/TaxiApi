@@ -96,3 +96,10 @@ class VehicleModel(BaseModel):
     seats: int
     class Config:
         orm_mode = True
+        
+class LoginPassenger(BaseModel):
+    phone_number: str
+    password: str
+    
+    class Config:
+        orm_mode = True
