@@ -35,8 +35,8 @@ def create_vehicle(vehicle: Vehicle, db: Session = Depends(get_db)):
     return crud_vehicle.create_vehicle(vehicle, db)
 
 @router.put("/{vehicle_id}",response_model=Vehicle)
-def update_vehicle(vehicle_id: int, license_plate : str, model : str ,color : str ,year : str ,db: Session=Depends(get_db)):
-    return crud_vehicle.update_vehicle(vehicle_id, license_plate , model ,color ,year,db)
+def update_vehicle(vehicle_id: int, license_plate : str, model : str ,color : str  ,db: Session=Depends(get_db)):
+    return crud_vehicle.update_vehicle(vehicle_id, license_plate , model ,color ,db)
 
 
 @router.delete("/{vehicle_id}", response_model=Vehicle)

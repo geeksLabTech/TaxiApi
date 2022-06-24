@@ -20,13 +20,12 @@ def create_vehicle(vehicle: Vehicle, db: Session):
     return db_vehicle
 
 
-def update_vehicle(vehicle_id: int, license_plate : str, model : str ,color : str ,year : str ,db: Session):
+def update_vehicle(vehicle_id: int, license_plate : str, model : str ,color : str ,db: Session):
     db_vehicle = db.query(VehicleDB).filter(
         VehicleDB.id == vehicle_id).first()
     db_vehicle.license_plate = license_plate
     db_vehicle.model = model
     db_vehicle.color = color
-    db_vehicle.year = year
     db_vehicle.driver_id = vehicle_id
     db.commit()
     return db_vehicle
