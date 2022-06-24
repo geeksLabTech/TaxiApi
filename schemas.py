@@ -55,6 +55,7 @@ class Place(BaseModel):
 
 
 class Status(str, Enum):
+    REQUESTED             = "REQUESTED"
     ACCEPTED              = 'ACCEPTED'
     REJECTED_BY_PASSENGER = 'REJECTED_BY_PASSENGER'
     REJECTED_BY_DRIVER    = 'REJECTED_BY_DRIVER'
