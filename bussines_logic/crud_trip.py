@@ -46,6 +46,30 @@ def create_trip(trip: Trip, db: Session):
     # except :
         # return "Somethig went wrong"
 
+def change_state_trip(db: Session, trip_id: int):
+    states =[
+    "REQUESTED",
+    'ACCEPTED',
+    'CANCELED',
+    'FINISHED'
+    ]
+    db_trip = db.query(TripDB).filter(id=trip_id).first()
+    if db_trip.status != states[-1] and db_trip.status != "CANCELLED-BY-DRIVER" and db_trip.status != "CANCELLED-BY-PASSENGER":
+        db_trip.status = states[(states.index(db_trip.status) + 1)]
+    db.commit()
+    return db_trip
+
+def cancel_trip(db: Session, trip_id: int, passenger: bool):
+
+    db_trip = db.query(TripDB).filter(id=trip_id).first()
+    
+    if passenger:
+        db_trip.status = "CANCELLED-BY-PASSENGER"
+    else:
+        db_trip.status = "CANCELLED-BY-DRIVER"
+    db.commit()
+    return db_trip
+
 
 # def update_trip(db: Session, driver_id: int, passenger_id: int, vehicle_id: int, trip: TripDB):
 #     db_trip = db.query(TripDB).filter(TripDB.driver_id == driver_id,

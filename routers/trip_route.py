@@ -24,6 +24,18 @@ def get_trip(trip_id: int, pasenger_id: int, vehicle_id: int, db: Session = Depe
         raise HTTPException(status_code=404, detail="Trip not found")
     return trip
 
+@router.post("/change_state/{trip_id}")
+def create_trip(trip_id: int, db: Session = Depends(get_db)):
+    return crud_trip.change_state_trip(db, trip_id=trip_id)
+
+@router.post("/cancel_user/{trip_id}")
+def create_trip(trip_id: int, db: Session = Depends(get_db)):
+    return crud_trip.cancel_trip(db, trip_id=trip_id, passenger=True)
+
+@router.post("/cancel_driver/{trip_id}")
+def create_trip(trip_id: int, db: Session = Depends(get_db)):
+    return crud_trip.cancel_trip(db, trip_id=trip_id, passenger=False)
+
 
 @router.post("/")
 def create_trip(trip: Trip, db: Session = Depends(get_db)):
