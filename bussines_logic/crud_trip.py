@@ -53,7 +53,7 @@ def change_state_trip(db: Session, trip_id: int):
     'CANCELED',
     'FINISHED'
     ]
-    db_trip = db.query(TripDB).filter(id=trip_id).first()
+    db_trip = db.query(TripDB).filter(models.TripDB.id==trip_id).first()
     if db_trip.status != states[-1] and db_trip.status != "CANCELLED-BY-DRIVER" and db_trip.status != "CANCELLED-BY-PASSENGER":
         db_trip.status = states[(states.index(db_trip.status) + 1)]
     db.commit()
@@ -61,8 +61,8 @@ def change_state_trip(db: Session, trip_id: int):
 
 def cancel_trip(db: Session, trip_id: int, passenger: bool):
 
-    db_trip = db.query(TripDB).filter(id=trip_id).first()
-    
+    db_trip = db.query(TripDB).filter(models.TripDB.id==trip_id).first()
+
     if passenger:
         db_trip.status = "CANCELLED-BY-PASSENGER"
     else:
