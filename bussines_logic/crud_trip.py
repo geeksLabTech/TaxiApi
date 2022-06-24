@@ -24,8 +24,8 @@ def create_trip(trip: Trip, db: Session):
     destination = db.query(models.PlaceDB).filter(models.PlaceDB.id == trip.destination_id).first()
     db_trip = TripDB(
         id=trip.id,
-        date = datetime.datetime.strptime(trip.date, '%Y-%m-%d'),
-        time= datetime.datetime.strptime(trip.time, '%H:%M:%S'),
+        date = datetime.datetime.strptime(trip.date, '%d-%m-%y'),
+        time= datetime.datetime.strptime(trip.time, '%H:%M'),
         price=trip.price , 
         distance=trip.distance , 
         origin_id=trip.origin_id , 
