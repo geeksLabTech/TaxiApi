@@ -38,8 +38,8 @@ def create_vehiclemodel(vehiclemodel: VehicleModel, db: Session = Depends(get_db
     raise HTTPException(status_code=409, detail="VehicleModel Already Exists")
 
 @router.put("/{vehiclemodel_id}",response_model= VehicleModel)
-def update_vehiclemodels(vehiclemodel_id : int , name : str, db:Session = Depends(get_db)):
-    return crud_vehicle_model.update_vehiclemodel(vehiclemodel_id,name,db)
+def update_vehiclemodel(vehiclemodel: VehicleModel, db:Session = Depends(get_db)):
+    return crud_vehicle_model.update_vehiclemodel(vehiclemodel,db)
 
 
 @router.delete("/{vehiclemodel_id}", response_model=VehicleModel)
